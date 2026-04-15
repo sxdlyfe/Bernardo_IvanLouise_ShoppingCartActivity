@@ -7,10 +7,10 @@ namespace ShoppingCartSystem
         public string Name;
         public double Price;
         public int RemainingStock;
-
+        
         public void DisplayProduct()
         {
-            Console.WriteLine($"{Id,-5} | {Name,-35} | {Price,10} | {RemainingStock,5}");
+            Console.WriteLine($"{Id,-5} | {Name,-40} | {Price,15:N0} | {RemainingStock,5}");
         }
 
         public double GetItemTotal(int quantity)
@@ -25,6 +25,7 @@ namespace ShoppingCartSystem
                 Console.WriteLine("No Stock Available.");
                 return false;
             }
+
             else
             {
                 return true;
@@ -36,39 +37,53 @@ namespace ShoppingCartSystem
             RemainingStock -= quantity;
         }
     }
+
     public class CartItem
     {
         public Product product;
         public int quantity;
     }
+
     class Program
     {
         static void Main(string[] args)
         {
-            CartItem[] cart = new CartItem[20];
-            int ItemsInCart = 0;
+            CartItem[] cart = new CartItem[20]; // Carts array
+            int ItemsInCart = 0; 
 
-            Console.WriteLine("|======== Car Shop and Auto Parts ======|");
-            Console.WriteLine($"{"ID",-5} | {"NAME",-35} | {"PRICE",10} | {"REMAINING STOCK",15} ");
-            Product[] products = new Product[]
+            Console.WriteLine("|======== Bernardo's Car Parts and Auto Parts ======|");
+            Console.WriteLine($"{"ID",-5} | {"NAME",-40} | {"PRICE (PESOS)",15} | {"REMAINING STOCK",15} ");
+            Product[] products = new Product[] // Products array
             {
-                new Product { Id = 1, Name = "Toyota Vios 2006", Price = 200000, RemainingStock = 1},
-                new Product { Id = 2, Name = "Vios 2006 - 2009 Headlight Pair", Price = 6000, RemainingStock = 8 },
-                new Product { Id = 3, Name = "Vios 2006 - 2009 Taillight Pair", Price = 8000, RemainingStock = 4 },
-                new Product { Id = 4, Name = "Honda Civic 2010", Price = 350000, RemainingStock = 5},
-                new Product { Id = 5, Name = "Toyota Fortuner", Price = 800000, RemainingStock = 3},
-                new Product { Id = 6, Name = "Honda Civic Side Mirror Pair", Price = 3500, RemainingStock = 67},
-                new Product { Id = 7, Name = "Fortuner Bumper Cover", Price = 12000, RemainingStock = 10},
-                new Product { Id = 8, Name = "Lancer Brake Pads Set", Price = 2500, RemainingStock = 0},
-                new Product { Id = 9, Name = "Universal Windshield Wipers", Price = 800, RemainingStock = 100},
-                new Product { Id = 10, Name = "Car Battery 12V ", Price = 4500, RemainingStock = 5},
-                new Product { Id = 11, Name = "Radiator Fan Assembly", Price = 6500, RemainingStock = 13 },
-                new Product { Id = 12, Name = "Spark Plug Set ", Price = 1200, RemainingStock = 1000},
-                new Product { Id = 13, Name = "Lancer Side Mirror Pair", Price = 2800, RemainingStock = 9},
-                new Product { Id = 14, Name = "Oil Filter", Price = 500, RemainingStock = 50},
-                new Product { Id = 15, Name = "Clutch Kit", Price = 8000, RemainingStock = 7},
+                // Toyota Car Parts and Auto Parts
+                new Product { Id = 1, Name = "Toyota Vios 2006-2009 Headlight Pair", Price = 6000, RemainingStock = 10 },
+                new Product { Id = 2, Name = "Toyota Vios 2006-2009 Taillight Pair", Price = 6000, RemainingStock = 10 },
+                new Product { Id = 3, Name = "Toyota Innova 2012-2015 Grille", Price = 3500, RemainingStock = 6 },
+                new Product { Id = 4, Name = "Toyota Wigo 2014-2019 Shock Absorber", Price = 3200, RemainingStock = 14 },
+                new Product { Id = 5, Name = "Toyota Hiace 2005-2018 Fuel Filter", Price = 900, RemainingStock = 30 },
+                
+                // Honda Car Parts and Auto Parts
+                new Product { Id = 6, Name = "Honda Civic 2016-2020 Front Bumper", Price = 8000, RemainingStock = 4 },
+                new Product { Id = 7, Name = "Honda City 2014-2019 Brake Pads", Price = 2200, RemainingStock = 15 },
+                new Product { Id = 8, Name = "Honda CR-V 2017-2022 Cabin Filter", Price = 1200, RemainingStock = 20 },
+                new Product { Id = 9, Name = "Honda Jazz 2014-2021 Side Mirror", Price = 4500, RemainingStock = 5 },
+                new Product { Id = 10, Name = "Honda Accord 2013-2018 Radiator", Price = 6500, RemainingStock = 3 },
 
+                // Mitsubishi Car Parts and Auto Parrts
+                new Product { Id = 11, Name = "Mitsubishi Montero 2016+ Brake Rotor", Price = 4200, RemainingStock = 8 },
+                new Product { Id = 12, Name = "Mitsubishi Mirage G4 2013+ Radiator", Price = 5500, RemainingStock = 10 },
+                new Product { Id = 13, Name = "Mitsubishi L300 1990+ Alternator", Price = 7500, RemainingStock = 5 },
+                new Product { Id = 14, Name = "Mitsubishi Strada 2015+ Wiper Motor", Price = 4800, RemainingStock = 4 },
+                new Product { Id = 15, Name = "Mitsubishi Adventure 2004+ Clutch", Price = 8500, RemainingStock = 6 },
+                
+                // Miscellaneous Produts 
+                new Product { Id = 16, Name = "NGK Iridium Spark Plug Set (4pcs)", Price = 2400, RemainingStock = 50 },
+                new Product { Id = 17, Name = "Motolite Gold 12V Car Battery", Price = 5200, RemainingStock = 8 },
+                new Product { Id = 18, Name = "Denso Universal Horn Set (Pair)", Price = 1500, RemainingStock = 25 },
+                new Product { Id = 19, Name = "Toyota/Mitsubishi Cabin Air Filter", Price = 450, RemainingStock = 100 },
+                new Product { Id = 20, Name = "Brembo Dot 4 Brake Fluid 500ml", Price = 650, RemainingStock = 40 }
             };
+
             for (int i = 0; i < products.Length; i++)
             {
                 products[i].DisplayProduct();
@@ -92,17 +107,17 @@ namespace ShoppingCartSystem
                     }
                     if (!isFound)
                     {
-                        Console.WriteLine("ID is not found.");
+                        Console.WriteLine("\nID is not found.");
                     }
                     else
                     {
                         if (SelectedProduct.RemainingStock == 0)
                         {
-                            Console.WriteLine("This product is out of stock.");
+                            Console.WriteLine("\nThis product is out of stock.");
                         }
                         else
                         {
-                            Console.Write("Enter Quantity: ");
+                            Console.Write("\nEnter Quantity: ");
                             if (int.TryParse(Console.ReadLine(), out int quantity))
                             {
                                 if (quantity > 0)
@@ -111,26 +126,29 @@ namespace ShoppingCartSystem
                                     {
                                         if (ItemsInCart >= 20)
                                         {
-                                            Console.WriteLine("Cart is full!");
+                                            Console.WriteLine("\nCart is full!");
                                         }
                                         else
                                         {
                                             bool isDuplicate = false;
                                             for (int i = 0; i < ItemsInCart; i++)
                                             {
+                                                // if same product is added, the system would take record of it and not overwrite the duplicate. 
                                                 if (cart[i].product.Id == SelectedProduct.Id)
                                                 {
                                                     cart[i].quantity += quantity;
                                                     SelectedProduct.DeductStock(quantity);
                                                     isDuplicate = true;
+                                                    Console.WriteLine("\nAdded to Cart!");
                                                 }
                                             }
+                                            // item is added to the cart.
                                             if (!isDuplicate)
                                             {
                                                 cart[ItemsInCart] = new CartItem { product = SelectedProduct, quantity = quantity };
                                                 ItemsInCart++;
                                                 SelectedProduct.DeductStock(quantity);
-                                                Console.WriteLine("Added to Cart!");
+                                                Console.WriteLine("\nAdded to Cart!");
                                             }
                                         }
                                     }
@@ -149,40 +167,53 @@ namespace ShoppingCartSystem
                 }
                 else
                 {
-                    Console.Write("\nProduct ID is not a number. Try Again: ");
+                    Console.Write("\nProduct ID is not a number.");
                 }
 
+                // after completing from Product ID until Quantity, program would ask to continue shopping.
                 Console.Write("\nContinue Shopping? Y/N: ");
                 string choice = Console.ReadLine().ToUpper();
 
+                // if user wants to stop shopping, the program would start to take note of the cart, and calculate everything.
                 double GrandTotal = 0;
                 while (true)
                 {
                     if (choice == "N")
                     {
+                        // Printing receipts
+                        Console.WriteLine("\n|======== Receipt ========|");
+
+                        // Showing items in cart, quantity of product bought, and total amount of items bought.
                         for (int i = 0; i < ItemsInCart; i++)
                         {
                             double itemTotal = cart[i].product.GetItemTotal(cart[i].quantity);
-                            GrandTotal += itemTotal;
-                            Console.WriteLine($"\n{cart[i].product.Name} - x{cart[i].quantity} - {itemTotal:N2}");
+                            GrandTotal += itemTotal; //
+                            Console.WriteLine($"\n{cart[i].product.Name} - x{cart[i].quantity} - P{itemTotal:N2}");
                         }
 
-                        Console.WriteLine($"Grand Total: {GrandTotal}");
+                        //Grand total print
+                        Console.WriteLine($"\nGrand Total: P{GrandTotal:N2}");
+                        
+                        // Discount applied if cart > 5000 amount
                         if (GrandTotal >= 5000)
                         {
                             double discount = GrandTotal * 0.10;
                             double finalTotal = GrandTotal - discount;
-                            Console.WriteLine($"Discount: {discount:N2}");
-                            Console.WriteLine($"Final Total: {finalTotal:N2}");
+                            Console.WriteLine($"| +++ Discount: P{discount:N2} +++|");
+                            Console.WriteLine($"\n|====== Final Total: P{finalTotal:N2} ======|");
                         }
+
+                        // No discount if cart < 5000 amount
                         else
                         {
                             Console.WriteLine("\nDiscount is not applied.");
-                            Console.WriteLine($"Final Total: {GrandTotal:N2}");
+                            Console.WriteLine();    
+                            Console.WriteLine($"|====== Final Total: P{GrandTotal:N2} ======|");
                         }
-
+                        
+                        // Updated stocks, showing remaining stock of products.
                         Console.WriteLine("\n|======= UPDATED STOCK =======|");
-                        Console.WriteLine($"{"ID",-5} | {"NAME",-35} | {"PRICE",10} | {"REMAINING STOCK",15} ");
+                        Console.WriteLine($"{"ID",-5} | {"NAME",-40} | {"PRICE (PESOS)",15} | {"REMAINING STOCK",15} ");
                         for (int i = 0; i < products.Length; i++)
                         {
                             products[i].DisplayProduct();
@@ -191,16 +222,18 @@ namespace ShoppingCartSystem
                         break;
                     }
 
+                    // Restart from the start (loop)
                     else if (choice == "Y")
                     {
                         Console.WriteLine("\nContinue Shopping....");
                         break;
                     }
 
+                    // If input is invalid, program would ask again until the requirements are meeted.
                     else
                     {
                         Console.WriteLine("Invalid input. Please enter Y or N.");
-                        Console.Write("Continue Shopping? Y/N: ");
+                        Console.Write("\nContinue Shopping? Y/N: ");
                         choice = Console.ReadLine().ToUpper();
                     }
                 }
