@@ -15,7 +15,7 @@ AI was used but only as a guide. AI was not directly tasked to generate the code
 
 In some parts like creating a method and classes, since I still have no idea, I asked AI what is its uses and how can I apply it in my program. I would force myself to learn everything, down to the basics so that I can apply my learnings to other projects.
 
-I asked AI
+**I asked AI**
 - How classes and methods work in C#
 - How to apply int.TryParse() for input validation
 - How to use the out keyword in int.TryParse()
