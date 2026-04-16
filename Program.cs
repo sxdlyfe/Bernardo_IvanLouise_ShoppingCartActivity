@@ -183,11 +183,10 @@ namespace ShoppingCartSystem
                 {
                     Console.Write("\nProduct ID is not a number.");
                 }
-
                 // after completing from Product ID until Quantity, program would ask to continue shopping.
                 Console.Write("\nContinue Shopping? Y/N: ");
                 string choice = Console.ReadLine().ToUpper();
-
+               
                 // if user wants to stop shopping, the program would start to take note of the cart, and calculate everything.
                 double GrandTotal = 0;
                 while (true)
@@ -196,7 +195,6 @@ namespace ShoppingCartSystem
                     {
                         // Printing receipts
                         Console.WriteLine("\n|======== Receipt ========|");
-
                         // Showing items in cart, quantity of product bought, and total amount of items bought.
                         for (int i = 0; i < ItemsInCart; i++)
                         {
@@ -204,10 +202,8 @@ namespace ShoppingCartSystem
                             GrandTotal += itemTotal; //
                             Console.WriteLine($"\n{cart[i].product.Name} - x{cart[i].quantity} - P{itemTotal:N2}");
                         }
-
                         //Grand total print
                         Console.WriteLine($"\nGrand Total: P{GrandTotal:N2}");
-                        
                         // Discount applied if cart > 5000 amount
                         if (GrandTotal >= 5000)
                         {
@@ -222,8 +218,7 @@ namespace ShoppingCartSystem
                         {
                             Console.WriteLine("\nDiscount is not applied.");  
                             Console.WriteLine($"|====== Final Total: P{GrandTotal:N2} ======|");
-                        }
-                        
+                        }          
                         // Updated stocks, showing remaining stock of products.
                         Console.WriteLine("\n|======= UPDATED STOCK =======|");
                         Console.WriteLine($"{"ID",-5} | {"NAME",-40} | {"PRICE (PESOS)",15} | {"REMAINING STOCK",15} ");
@@ -234,13 +229,11 @@ namespace ShoppingCartSystem
                         exitShop = true;
                         break;
                     }
-
                     // Restart from the start (loop)
                     else if (choice == "Y")
                     {
                         break;
                     }
-
                     // If input is invalid, program would ask again until the requirements are meeted.
                     else
                     {
