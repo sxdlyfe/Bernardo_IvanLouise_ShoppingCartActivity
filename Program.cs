@@ -48,7 +48,7 @@ namespace ShoppingCartSystem
     {
         static void Main(string[] args)
         {
-            CartItem[] cart = new CartItem[5]; // Carts array
+            CartItem[] cart = new CartItem[15]; // Carts array
             int ItemsInCart = 0; 
 
             Console.WriteLine("|======== Bernardo's Car Parts and Auto Parts ======|");
@@ -124,7 +124,8 @@ namespace ShoppingCartSystem
                                 {
                                     if (SelectedProduct.HasEnoughStock(quantity))
                                     {
-                                        if (ItemsInCart >= 5)
+                                        
+                                        if (ItemsInCart >= 15)
                                         {
                                             bool isDuplicate = false;
                                             for (int i = 0; i < ItemsInCart; i++)
