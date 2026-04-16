@@ -48,7 +48,7 @@ namespace ShoppingCartSystem
     {
         static void Main(string[] args)
         {
-            CartItem[] cart = new CartItem[20]; // Carts array
+            CartItem[] cart = new CartItem[5]; // Carts array
             int ItemsInCart = 0; 
 
             Console.WriteLine("|======== Bernardo's Car Parts and Auto Parts ======|");
@@ -124,16 +124,11 @@ namespace ShoppingCartSystem
                                 {
                                     if (SelectedProduct.HasEnoughStock(quantity))
                                     {
-                                        if (ItemsInCart >= 20)
-                                        {
-                                            Console.WriteLine("\nCart is full!");
-                                        }
-                                        else
+                                        if (ItemsInCart >= 5)
                                         {
                                             bool isDuplicate = false;
                                             for (int i = 0; i < ItemsInCart; i++)
                                             {
-                                                // if same product is added, the system would take record of it and not overwrite the duplicate. 
                                                 if (cart[i].product.Id == SelectedProduct.Id)
                                                 {
                                                     cart[i].quantity += quantity;
@@ -142,7 +137,25 @@ namespace ShoppingCartSystem
                                                     Console.WriteLine("\nAdded to Cart!");
                                                 }
                                             }
-                                            // item is added to the cart.
+
+                                            if (!isDuplicate)
+                                            {
+                                                Console.WriteLine("\nCart is full! Cannot add new products.");
+                                            }
+                                        }
+                                        else  
+                                        {
+                                            bool isDuplicate = false;
+                                            for (int i = 0; i < ItemsInCart; i++)
+                                            {
+                                                if (cart[i].product.Id == SelectedProduct.Id)
+                                                {
+                                                    cart[i].quantity += quantity;
+                                                    SelectedProduct.DeductStock(quantity);
+                                                    isDuplicate = true;
+                                                    Console.WriteLine("\nAdded to Cart!");
+                                                }
+                                            }
                                             if (!isDuplicate)
                                             {
                                                 cart[ItemsInCart] = new CartItem { product = SelectedProduct, quantity = quantity };
@@ -206,8 +219,7 @@ namespace ShoppingCartSystem
                         // No discount if cart < 5000 amount
                         else
                         {
-                            Console.WriteLine("\nDiscount is not applied.");
-                            Console.WriteLine();    
+                            Console.WriteLine("\nDiscount is not applied.");  
                             Console.WriteLine($"|====== Final Total: P{GrandTotal:N2} ======|");
                         }
                         
@@ -225,7 +237,6 @@ namespace ShoppingCartSystem
                     // Restart from the start (loop)
                     else if (choice == "Y")
                     {
-                        Console.WriteLine("\nContinue Shopping....");
                         break;
                     }
 
