@@ -24,5 +24,8 @@ In some parts like creating a method and classes, since I still have no idea, I 
 - How to call methods from a class (e.g., DisplayProduct();,
   HasEnoughStock(), DeductStock(), GetItemTotal())
 
+## Changes made after using AI
+AI helped me to understand classes and methods better, but I came up with an idea to make it into a auto parts store. I used my own knowledge to build the logic, chose the products, designed the store layout, and structured the cart system myself. I reviewed my code to ensure a better understanding of the program.
+
 ## Language Usage
 C#
