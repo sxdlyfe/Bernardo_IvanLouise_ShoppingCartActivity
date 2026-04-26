@@ -7,7 +7,7 @@ namespace ShoppingCartSystem
         public string Name;
         public double Price;
         public int RemainingStock;
-        
+
         public void DisplayProduct()
         {
             Console.WriteLine($"{Id,-5} | {Name,-40} | {Price,15:N0} | {RemainingStock,5}");
@@ -49,7 +49,7 @@ namespace ShoppingCartSystem
         static void Main(string[] args)
         {
             CartItem[] cart = new CartItem[15]; // Carts array
-            int ItemsInCart = 0; 
+            int ItemsInCart = 0;
 
             Console.WriteLine("|======== Bernardo's Car Parts and Auto Parts ======|");
             Console.WriteLine($"{"ID",-5} | {"NAME",-40} | {"PRICE (PESOS)",15} | {"REMAINING STOCK",15} ");
@@ -124,45 +124,29 @@ namespace ShoppingCartSystem
                                 {
                                     if (SelectedProduct.HasEnoughStock(quantity))
                                     {
-                                        
-                                        if (ItemsInCart >= 15)
+                                        bool isDuplicate = false;
+                                        for (int i = 0; i < ItemsInCart; i++)
                                         {
-                                            bool isDuplicate = false;
-                                            for (int i = 0; i < ItemsInCart; i++)
+                                            if (cart[i].product.Id == SelectedProduct.Id)
                                             {
-                                                if (cart[i].product.Id == SelectedProduct.Id)
-                                                {
-                                                    cart[i].quantity += quantity;
-                                                    SelectedProduct.DeductStock(quantity);
-                                                    isDuplicate = true;
-                                                    Console.WriteLine("\nAdded to Cart!");
-                                                }
-                                            }
-
-                                            if (!isDuplicate)
-                                            {
-                                                Console.WriteLine("\nCart is full! Cannot add new products.");
+                                                cart[i].quantity += quantity;
+                                                SelectedProduct.DeductStock(quantity);
+                                                isDuplicate = true;
+                                                Console.WriteLine("\nAdded to Cart!");
                                             }
                                         }
-                                        else  
+                                        if (!isDuplicate)
                                         {
-                                            bool isDuplicate = false;
-                                            for (int i = 0; i < ItemsInCart; i++)
-                                            {
-                                                if (cart[i].product.Id == SelectedProduct.Id)
-                                                {
-                                                    cart[i].quantity += quantity;
-                                                    SelectedProduct.DeductStock(quantity);
-                                                    isDuplicate = true;
-                                                    Console.WriteLine("\nAdded to Cart!");
-                                                }
-                                            }
-                                            if (!isDuplicate)
+                                            if (ItemsInCart < 15)
                                             {
                                                 cart[ItemsInCart] = new CartItem { product = SelectedProduct, quantity = quantity };
                                                 ItemsInCart++;
                                                 SelectedProduct.DeductStock(quantity);
                                                 Console.WriteLine("\nAdded to Cart!");
+                                            }
+                                            else
+                                            {
+                                                Console.WriteLine("\nCart is full! Cannot add new products.");
                                             }
                                         }
                                     }
@@ -186,7 +170,7 @@ namespace ShoppingCartSystem
                 // after completing from Product ID until Quantity, program would ask to continue shopping.
                 Console.Write("\nContinue Shopping? Y/N: ");
                 string choice = Console.ReadLine().ToUpper();
-               
+
                 // if user wants to stop shopping, the program would start to take note of the cart, and calculate everything.
                 double GrandTotal = 0;
                 while (true)
@@ -216,9 +200,9 @@ namespace ShoppingCartSystem
                         // No discount if cart < 5000 amount
                         else
                         {
-                            Console.WriteLine("\nDiscount is not applied.");  
+                            Console.WriteLine("\nDiscount is not applied.");
                             Console.WriteLine($"|====== Final Total: P{GrandTotal:N2} ======|");
-                        }          
+                        }
                         // Updated stocks, showing remaining stock of products.
                         Console.WriteLine("\n|======= UPDATED STOCK =======|");
                         Console.WriteLine($"{"ID",-5} | {"NAME",-40} | {"PRICE (PESOS)",15} | {"REMAINING STOCK",15} ");
