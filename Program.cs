@@ -12,12 +12,10 @@ namespace ShoppingCartSystem
         {
             Console.WriteLine($"{Id,-5} | {Name,-40} | {Price,15:N0} | {RemainingStock,5}");
         }
-
         public double GetItemTotal(int quantity)
         {
             return Price * quantity;
         }
-
         public bool HasEnoughStock(int quantity)
         {
             if (RemainingStock < quantity)
@@ -31,19 +29,16 @@ namespace ShoppingCartSystem
                 return true;
             }
         }
-
         public void DeductStock(int quantity)
         {
             RemainingStock -= quantity;
         }
     }
-
     public class CartItem
     {
         public Product product;
         public int quantity;
     }
-
     class Program
     {
         static void Main(string[] args)
@@ -88,85 +83,93 @@ namespace ShoppingCartSystem
             {
                 products[i].DisplayProduct();
             }
-
             bool exitShop = false;
             while (!exitShop)
             {
-                Console.Write("\nEnter Product ID: ");
-                if (int.TryParse(Console.ReadLine(), out int productID))
+                bool isFound = false;
+                Product SelectedProduct = null;
+                while (!isFound)
                 {
-                    bool isFound = false;
-                    Product SelectedProduct = null;
-                    for (int i = 0; i < products.Length; i++)
+                    Console.WriteLine("");
+                    Console.Write("Enter Product ID: ");
+                    if (int.TryParse(Console.ReadLine(), out int productID))
                     {
-                        if (productID == products[i].Id)
+                        for (int i = 0; i < products.Length; i++)
                         {
-                            SelectedProduct = products[i];
-                            isFound = true;
+                            if (productID == products[i].Id)
+                            {
+                                SelectedProduct = products[i];
+                                isFound = true;
+                            }
                         }
-                    }
-                    if (!isFound)
-                    {
-                        Console.WriteLine("\nID is not found.");
+                        if (!isFound)
+                        {
+                            Console.WriteLine("Product ID is not found, please input valid product ID");
+                        }
                     }
                     else
                     {
-                        if (SelectedProduct.RemainingStock == 0)
+                        Console.WriteLine("Invalid input, please enter valid product ID");
+                    }
+                }
+
+                bool isNumber = false;
+                while (!isNumber)
+                {
+                    if (SelectedProduct.RemainingStock == 0)
+                    {
+                        Console.WriteLine("\nThis product is out of stock.");
+                    }
+                    else
+                    {
+                        Console.Write("\nEnter Quantity: ");
+                        if (int.TryParse(Console.ReadLine(), out int quantity))
                         {
-                            Console.WriteLine("\nThis product is out of stock.");
-                        }
-                        else
-                        {
-                            Console.Write("\nEnter Quantity: ");
-                            if (int.TryParse(Console.ReadLine(), out int quantity))
+                            if (quantity > 0)
                             {
-                                if (quantity > 0)
+                                if (SelectedProduct.HasEnoughStock(quantity))
                                 {
-                                    if (SelectedProduct.HasEnoughStock(quantity))
+                                    bool isDuplicate = false;
+                                    for (int i = 0; i < ItemsInCart; i++)
                                     {
-                                        bool isDuplicate = false;
-                                        for (int i = 0; i < ItemsInCart; i++)
+                                        if (cart[i].product.Id == SelectedProduct.Id)
                                         {
-                                            if (cart[i].product.Id == SelectedProduct.Id)
-                                            {
-                                                cart[i].quantity += quantity;
-                                                SelectedProduct.DeductStock(quantity);
-                                                isDuplicate = true;
-                                                Console.WriteLine("\nAdded to Cart!");
-                                            }
-                                        }
-                                        if (!isDuplicate)
-                                        {
-                                            if (ItemsInCart < 15)
-                                            {
-                                                cart[ItemsInCart] = new CartItem { product = SelectedProduct, quantity = quantity };
-                                                ItemsInCart++;
-                                                SelectedProduct.DeductStock(quantity);
-                                                Console.WriteLine("\nAdded to Cart!");
-                                            }
-                                            else
-                                            {
-                                                Console.WriteLine("\nCart is full! Cannot add new products.");
-                                            }
+                                            cart[i].quantity += quantity;
+                                            SelectedProduct.DeductStock(quantity);
+                                            isDuplicate = true;
+                                            isNumber = true;
+                                            Console.WriteLine("\nAdded to Cart!");
                                         }
                                     }
-                                }
-                                else
-                                {
-                                    Console.WriteLine("Quantity can not be Zero or Negative!");
+                                    if (!isDuplicate)
+                                    {
+                                        if (ItemsInCart < 15)
+                                        {
+                                            cart[ItemsInCart] = new CartItem { product = SelectedProduct, quantity = quantity };
+                                            ItemsInCart++;
+                                            SelectedProduct.DeductStock(quantity);
+                                            isNumber = true;
+                                            Console.WriteLine("\nAdded to Cart!");
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("\nCart is full! Cannot add new products.");
+                                        }
+                                    }
                                 }
                             }
                             else
                             {
-                                Console.WriteLine("Invalid Input. ");
+                                Console.WriteLine("Quantity can not be Zero or Negative!");
                             }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid Input.");
                         }
                     }
                 }
-                else
-                {
-                    Console.Write("\nProduct ID is not a number.");
-                }
+
                 // after completing from Product ID until Quantity, program would ask to continue shopping.
                 Console.Write("\nContinue Shopping? Y/N: ");
                 string choice = Console.ReadLine().ToUpper();
