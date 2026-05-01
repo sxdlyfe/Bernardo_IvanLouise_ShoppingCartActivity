@@ -1,5 +1,4 @@
 using System;
-
 namespace ShoppingCartSystem
 {
     public class Product
@@ -254,7 +253,7 @@ namespace ShoppingCartSystem
 
                             bool found = false;
                             Console.WriteLine("\n|======= SEARCH RESULTS =======|");
-                            Console.WriteLine($"{"ID",-5} | {"NAME",-40} | {"PRICE (PESOS)",15} | {"REMAINING STOCK",15} ");
+                            Console.WriteLine($"{"ID",-5} | {"NAME",-40} | {"CATEGORY",-15} | {"PRICE (PESOS)",15} | {"REMAINING STOCK",15}");
 
                             for (int i = 0; i < products.Length; i++)
                             {
@@ -296,7 +295,7 @@ namespace ShoppingCartSystem
                                 if (selectedCategory != "")
                                 {
                                     Console.WriteLine($"\n|======= {selectedCategory.ToUpper()} PRODUCTS =======|");
-                                    Console.WriteLine($"{"ID",-5} | {"NAME",-40} | {"PRICE (PESOS)",15} | {"REMAINING STOCK",15} ");
+                                    Console.WriteLine($"{"ID",-5} | {"NAME",-40} | {"CATEGORY",-15} | {"PRICE (PESOS)",15} | {"REMAINING STOCK",15}");
 
                                     bool categoryFound = false;  // ← Use this instead
                                     for (int i = 0; i < products.Length; i++)
